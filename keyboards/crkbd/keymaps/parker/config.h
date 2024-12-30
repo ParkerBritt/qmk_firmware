@@ -8,6 +8,11 @@
 // Define the right side as the master
 #define MASTER_RIGHT
 
+// home row mods
+#define TAPPING_TERM 200       // default is often okay (200 ms)
+#define QUICK_TAP_TERM 0       // prevent repeated letters if you tap+hold the same key quickly
+
+
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
