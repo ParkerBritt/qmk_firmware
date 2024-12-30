@@ -9,7 +9,7 @@
 #define MASTER_RIGHT
 
 // home row mods
-#define TAPPING_TERM 200       // default is often okay (200 ms)
+#define TAPPING_TERM 180       // default is often okay (200 ms)
 #define QUICK_TAP_TERM 0       // prevent repeated letters if you tap+hold the same key quickly
 
 
