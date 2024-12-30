@@ -19,10 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 // home row mods
-#define GUI_A LGUI_T(KC_A)
+#define GUI_A LALT_T(KC_A)
 #define ALT_S LALT_T(KC_S)
-#define SFT_D LSFT_T(KC_D)
-#define CTL_F LCTL_T(KC_F)
+#define SFT_D LALT_T(KC_D)
+#define CTL_F LALT_T(KC_F)
 
 // ----- oled -------
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -61,6 +61,7 @@ void render_icon(void) {
     oled_write_raw_P(image, 416);
 }
 
+// TODO: replace image, different images for different layers
 bool oled_task_user(void) {
     render_icon();
     return false;
@@ -69,6 +70,8 @@ bool oled_task_user(void) {
 
 
 
+// TODO: add houdini layer (F2, delete)
+// TODO: add function keys
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { // default
     [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
