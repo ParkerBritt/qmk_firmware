@@ -36,7 +36,6 @@ enum layers {
 };
 
 // ----- oled -------
-static
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
@@ -100,17 +99,18 @@ static void render_layer_status(void) {
 
 // #ifdef OLED_DRIVER_ENABLE
 bool oled_task_user(void) {
-     if (is_keyboard_master()) {
+     // if (is_keyboard_master()) {
         oled_clear();
-        oled_set_cursor(32,0);
+        oled_set_cursor(0,5);
         render_icon();
         oled_set_cursor(0,0);
         render_layer_status();
-    }
-    else{
-        render_kitty_anim();
-        render_layer_status();
-    }
+    // }
+    // else{
+    //     oled_set_cursor(0,4);
+    //     render_kitty_anim();
+    //     render_layer_status();
+    // }
 
 
 
@@ -118,16 +118,6 @@ bool oled_task_user(void) {
     return false;
 }
 
-void oled_render_boot(bool bootloader) {
-    oled_clear();
-    // oled_set_cursor(0, 0);
-    if (bootloader) {
-        oled_write_P(PSTR("Awaiting New Firmware "), false);
-    } else {
-        oled_write_P(PSTR("Rebooting "), false);
-    }
-    oled_render_dirty(true);
-}
 
 bool shutdown_user(bool jump_to_bootloader) {
     oled_render_boot(jump_to_bootloader);

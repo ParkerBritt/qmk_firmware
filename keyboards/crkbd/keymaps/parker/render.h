@@ -127,6 +127,17 @@ void render_switcher(void) {
     oled_write_raw_P(image, sizeof(image));
 }
 
+void oled_render_boot(bool bootloader) {
+    oled_clear();
+    oled_set_cursor(0, 3);
+    if (bootloader) {
+        oled_write_P(PSTR("-----\nREADY\n TO  \nFLASH\nFIRM\n-----"), false);
+    } else {
+        oled_write_P(PSTR("Reboot"), false);
+    }
+    oled_render_dirty(true);
+}
+
 #define NUM_FRAMES_KITTY 3
 #define ANIM_SIZE_KITTY 224
 static void render_kitty_anim(void) {
