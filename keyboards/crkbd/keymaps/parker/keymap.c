@@ -45,7 +45,7 @@ static void render_icon(void) {
 
     switch (get_highest_layer(layer_state)) {
         case _BASE:
-			render_samurai();
+			render_kitty();
             break;
         case _LOWER:
             render_lower();
