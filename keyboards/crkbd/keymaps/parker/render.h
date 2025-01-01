@@ -198,7 +198,6 @@ static void render_kitty_anim(void) {
         anim_timer = timer_read32();
 
 
-        oled_write_raw_P(anim_frames[frame_num], ANIM_SIZE_KITTY);
 
         // char str[12];
         // sprintf(str, "%" PRIu8, frame_num);
@@ -207,9 +206,7 @@ static void render_kitty_anim(void) {
         // oled_write_P(PSTR(str), false);
         // oled_write_P(PSTR(str1), false);
     }
-    else {
-        oled_write_raw_P(anim_frames[frame_num], ANIM_SIZE_KITTY);
-    }
+    oled_write_raw_P(anim_frames[frame_num], ANIM_SIZE_KITTY);
 }
 
 

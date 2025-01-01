@@ -36,14 +36,13 @@ enum layers {
 };
 
 // ----- oled -------
+static
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
 
 static void render_icon(void) {
-    oled_clear();
-
     switch (get_highest_layer(layer_state)) {
         case _BASE:
 			render_kitty_anim();
@@ -58,29 +57,84 @@ static void render_icon(void) {
             render_gaming();
             break;
         case _ADJUST:
-            oled_write_P(PSTR("Adjust"), false);
+            render_switcher();
             break;
         case _HOUDINI:
             render_houdini();
             break;
         case _SWITCHER:
             render_switcher();
+            break;
         default:
             oled_write_P(PSTR("Undefined"), false);
     }
 }
 
-// TODO: replace image, different images for different layers
+static void render_layer_status(void) {
+    switch (get_highest_layer(layer_state)) {
+        case _BASE:
+            oled_write_P(PSTR("Layer-----base"), false);
+            break;
+        case _LOWER:
+            oled_write_P(PSTR("Layer-----lower"), false);
+            break;
+        case _RAISE:
+            oled_write_P(PSTR("Layer-----raise"), false);
+            break;
+        case _GAMING:
+            oled_write_P(PSTR("Layer-----game"), false);
+            break;
+        case _ADJUST:
+            oled_write_P(PSTR("Layer-----adjst"), false);
+            break;
+        case _HOUDINI:
+            oled_write_P(PSTR("Layer-----hdini"), false);
+            break;
+        case _SWITCHER:
+            oled_write_P(PSTR("Layer-----switcher"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Undefined"), false);
+    }
+}
+
+// #ifdef OLED_DRIVER_ENABLE
 bool oled_task_user(void) {
-    // render_kitty_anim();
-    render_icon();
+     if (is_keyboard_master()) {
+        oled_clear();
+        oled_set_cursor(32,0);
+        render_icon();
+        oled_set_cursor(0,0);
+        render_layer_status();
+    }
+    else{
+        render_kitty_anim();
+        render_layer_status();
+    }
+
 
 
     // render_icon();
     return false;
 }
-// ----------------
 
+void oled_render_boot(bool bootloader) {
+    oled_clear();
+    // oled_set_cursor(0, 0);
+    if (bootloader) {
+        oled_write_P(PSTR("Awaiting New Firmware "), false);
+    } else {
+        oled_write_P(PSTR("Rebooting "), false);
+    }
+    oled_render_dirty(true);
+}
+
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
+    return false;
+}
+// ----------------
+// #endif
 
 
 // TODO: add houdini layer (F2, delete)
